@@ -18,11 +18,13 @@ class ReportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $tickets = $this->ticketService->getUserTickets($user);
-        return inertia('Reports/Index', compact('tickets'));
+        $search = $request->search;
+        $tickets = $this->ticketService->getUserTickets($user, $search);
+        $filters = ['search' => $search];
+        return inertia('Reports/Index', compact('tickets', 'filters'));
     }
 
     /**

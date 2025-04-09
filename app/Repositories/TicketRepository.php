@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketRepository implements TicketRepositoryInterface
 {
-    public function getAllTicketsForUser(User $user): Collection
+    public function getAllTicketsForUser(User $user, $search): Collection
     {
-        return $user->tickets()->with('category')->latest()->get();
+        return $user->tickets()->with('category')->when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        })->latest()->get();
     }
 
     public function getAllCategories(): Collection

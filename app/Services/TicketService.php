@@ -15,8 +15,8 @@ class TicketService
         
     }
 
-    public function getUserTickets(User $user) {
-        return $this->ticketRepository->getAllTicketsForUser($user);
+    public function getUserTickets(User $user, $search) {
+        return $this->ticketRepository->getAllTicketsForUser($user, $search);
     }
 
     public function getAllCategories() {

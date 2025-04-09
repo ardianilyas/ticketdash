@@ -3,13 +3,17 @@
     <AppLayout>
         <template #title>Tickets</template>
         <template #desc>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam corporis quae necessitatibus!</template>
+
+        <div class="max-w-2xl flex items-center gap-6">
+            <Link :href="route('dashboard.tickets.create')">
+                <Button>
+                    <PlusIcon />
+                    Create New Ticket
+                </Button>
+            </Link>
+            <SearchInput class="w-full" :value="filters.search" />
+        </div>
         
-        <Link :href="route('dashboard.tickets.create')">
-            <Button>
-                <PlusIcon />
-                Create New Ticket
-            </Button>
-        </Link>
 
         <Card>
             <ScrollArea class="w-full">
@@ -51,6 +55,7 @@
 
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3'
+import SearchInput from '@/components/SearchInput.vue';
 import AppLayout from "@/layouts/AppLayout.vue"
 import TicketPriority from '@/components/TicketPriority.vue'
 import TicketStatus from '@/components/TicketStatus.vue'
@@ -69,7 +74,10 @@ import {
 } from "@/components/ui/table"
 
 defineProps({
-    tickets: Object
+    tickets: Object,
+    filters: Object,
 });
+
+
 
 </script>
